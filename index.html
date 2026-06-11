@@ -619,12 +619,9 @@
     border-top: 1px solid var(--hairline);
   }
   .pillars li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
+    display: block;
     padding: 1.1rem 0;
     border-bottom: 1px solid var(--hairline);
-    align-items: baseline;
   }
   .pillars .p-num {
     font-family: var(--font-mono);
@@ -648,7 +645,9 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
-    margin-top: 2.5rem;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
     background: var(--hairline);
     border: 1px solid var(--hairline);
     border-radius: var(--radius);
@@ -747,7 +746,7 @@
   }
   .committee-list li {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     align-items: baseline;
     gap: 1rem;
     padding: 0.95rem 0;
@@ -772,8 +771,8 @@
     text-align: right;
   }
   @media (max-width: 620px) {
-    .committee-list li { grid-template-columns: auto 1fr; }
-    .committee-list .c-affil { grid-column: 2; text-align: left; margin-top: 0.1rem; }
+    .committee-list li { grid-template-columns: 1fr; }
+    .committee-list .c-affil { grid-column: 1; text-align: left; margin-top: 0.1rem; }
   }
 
   /* ==========================================================================
@@ -1076,7 +1075,6 @@
 
         <!-- Save-the-date "coupon" card -->
         <aside class="stamp reveal" style="--d:280ms" aria-label="Save the date details">
-          <span class="corner-coord" aria-hidden="true">36.9741° N<br/>122.0308° W</span>
           <span class="stamp-label">Save the Date</span>
           <p class="dateline">
             June 13–18, 2027
@@ -1254,7 +1252,6 @@
   <section class="vision" id="format" aria-labelledby="format-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="section-num">01</span>
         <span class="fieldnote">Meeting Format</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
@@ -1284,28 +1281,24 @@
 
           <ul class="pillars" aria-label="The meeting format">
             <li class="reveal" style="--d:80ms">
-              <span class="p-num">F/01</span>
               <span>
                 <span class="p-title">~40 invited talks</span>
                 <span class="p-desc">Across theory and experiment, pitched to be clear for graduate students in any AMO subfield, with an emphasis on new and unpublished work.</span>
               </span>
             </li>
             <li class="reveal" style="--d:140ms">
-              <span class="p-num">F/02</span>
               <span>
                 <span class="p-title">Communal meals</span>
                 <span class="p-desc">Breakfast, lunch, coffee breaks, and dinner — shared by the whole meeting, every day.</span>
               </span>
             </li>
             <li class="reveal" style="--d:200ms">
-              <span class="p-num">F/03</span>
               <span>
                 <span class="p-title">Open afternoons</span>
                 <span class="p-desc">Time set aside each day for hiking, sport, poster sessions, and unstructured conversation.</span>
               </span>
             </li>
             <li class="reveal" style="--d:260ms">
-              <span class="p-num">F/04</span>
               <span>
                 <span class="p-title">Every career stage</span>
                 <span class="p-desc">From first-year students to senior faculty, present and engaged for the full week.</span>
@@ -1323,7 +1316,6 @@
   <section class="speakers" id="speakers" aria-labelledby="speakers-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="section-num">02</span>
         <span class="fieldnote">Confirmed Speakers</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
@@ -1342,7 +1334,6 @@
               <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(120 40 40)"/>
             </svg>
           </div>
-          <p class="s-idx">SP/01</p>
           <h3>Jun Ye</h3>
           <p class="affil">JILA<br/>University of Colorado Boulder</p>
         </article>
@@ -1356,7 +1347,6 @@
               <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(140 40 40)"/>
             </svg>
           </div>
-          <p class="s-idx">SP/02</p>
           <h3>Adam Kaufman</h3>
           <p class="affil">JILA<br/>University of Colorado Boulder</p>
         </article>
@@ -1370,7 +1360,6 @@
               <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(165 40 40)"/>
             </svg>
           </div>
-          <p class="s-idx">SP/03</p>
           <h3>Monika Schleier-Smith</h3>
           <p class="affil">Stanford University</p>
         </article>
@@ -1386,7 +1375,6 @@
   <section class="committee" id="committee" aria-labelledby="committee-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="section-num">03</span>
         <span class="fieldnote">Organizing Committee</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
@@ -1396,15 +1384,15 @@
 
       <!-- Listed alphabetically by last name -->
       <ul class="committee-list" aria-label="Organizing committee members">
-        <li class="reveal" style="--d:40ms"><span class="c-idx">01</span><span class="c-name">Eric Cornell</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
-        <li class="reveal" style="--d:80ms"><span class="c-idx">02</span><span class="c-name">Dave DeMille</span><span class="c-affil">Johns Hopkins University</span></li>
-        <li class="reveal" style="--d:120ms"><span class="c-idx">03</span><span class="c-name">John Doyle</span><span class="c-affil">Harvard University</span></li>
-        <li class="reveal" style="--d:160ms"><span class="c-idx">04</span><span class="c-name">Nick Hutzler</span><span class="c-affil">Caltech</span></li>
-        <li class="reveal" style="--d:200ms"><span class="c-idx">05</span><span class="c-name">Shimon Kolkowitz</span><span class="c-affil">UC Berkeley</span></li>
-        <li class="reveal" style="--d:240ms"><span class="c-idx">06</span><span class="c-name">Heather Lewandowski</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
-        <li class="reveal" style="--d:280ms"><span class="c-idx">07</span><span class="c-name">Mikhail Lukin</span><span class="c-affil">Harvard University</span></li>
-        <li class="reveal" style="--d:320ms"><span class="c-idx">08</span><span class="c-name">Chris Monroe</span><span class="c-affil">Duke University</span></li>
-        <li class="reveal" style="--d:360ms"><span class="c-idx">09</span><span class="c-name">Susanne Yelin</span><span class="c-affil">Harvard University</span></li>
+        <li class="reveal" style="--d:40ms"><span class="c-name">Eric Cornell</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
+        <li class="reveal" style="--d:80ms"><span class="c-name">Dave DeMille</span><span class="c-affil">Johns Hopkins University</span></li>
+        <li class="reveal" style="--d:120ms"><span class="c-name">John Doyle</span><span class="c-affil">Harvard University</span></li>
+        <li class="reveal" style="--d:160ms"><span class="c-name">Nick Hutzler</span><span class="c-affil">Caltech</span></li>
+        <li class="reveal" style="--d:200ms"><span class="c-name">Shimon Kolkowitz</span><span class="c-affil">UC Berkeley</span></li>
+        <li class="reveal" style="--d:240ms"><span class="c-name">Heather Lewandowski</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
+        <li class="reveal" style="--d:280ms"><span class="c-name">Mikhail Lukin</span><span class="c-affil">Harvard University</span></li>
+        <li class="reveal" style="--d:320ms"><span class="c-name">Chris Monroe</span><span class="c-affil">Duke University</span></li>
+        <li class="reveal" style="--d:360ms"><span class="c-name">Susanne Yelin</span><span class="c-affil">Harvard University</span></li>
       </ul>
     </div>
   </section>
@@ -1415,7 +1403,6 @@
   <section class="stubs" aria-labelledby="stubs-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="section-num">04</span>
         <span class="fieldnote">Coming Soon</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
@@ -1434,7 +1421,6 @@
               afternoon / poster / social slots. This anchor (#program) and the
               nav link already point here, so a future /program.html can reuse it.
           -->
-          <p class="stub-num">04 · A</p>
           <span class="badge">Full program to be announced</span>
           <h3>Program</h3>
           <p>
@@ -1455,7 +1441,6 @@
             Keep this anchor (#register) and the nav "Register" link intact so the
             future /register.html (or modal) drops straight in. No fees are shown yet.
           -->
-          <p class="stub-num">04 · B</p>
           <span class="badge">Registration opens soon</span>
           <h3>Register</h3>
           <p>
@@ -1475,7 +1460,6 @@
   <section class="sponsors" id="sponsors" aria-labelledby="sponsors-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="section-num">05</span>
         <span class="fieldnote">With Support From</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
@@ -1541,7 +1525,6 @@
 
     <div class="footer-colophon">
       <span>© 2027 Summer CAMP — Save the Date</span>
-      <span aria-hidden="true">36.9741° N · 122.0308° W</span>
     </div>
   </div>
 
