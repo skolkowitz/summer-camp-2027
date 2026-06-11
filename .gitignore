@@ -1,0 +1,4 @@
+# Process artifacts and local previews — not part of the published site
+_drafts/
+.DS_Store
+.playwright-mcp/

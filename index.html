@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Summer CAMP — Summer Conference on Atomic and Molecular Physics · June 13–18, 2027</title>
+<meta name="description" content="Summer CAMP — the inaugural Summer Conference on Atomic and Molecular Physics. A fully residential week-long gathering of the AMO physics community. June 13–18, 2027, Chaminade Resort, Santa Cruz, California." />
+
+<!--
+  ============================================================================
+  SUMMER CAMP - Summer Conference on Atomic and Molecular Physics
+  Save-the-date / announcement site. Single self-contained file.
+  Aesthetic: "elevated coastal research retreat" - a scientific-journal front
+  page on warm paper, asymmetric editorial grid, optical-serif display,
+  monospace field-note metadata, fine atomic-lattice hairline rules, and a
+  golden-hour Santa Cruz redwood/coast hero scene.
+
+  ARCHITECTURE NOTES (for the future multi-page build):
+  - All colors / spacing / type live in CSS custom properties (:root tokens),
+    so a future theme can be retargeted in one place.
+  - Sections are demarcated with SECTION comments.
+  - Program + Register are intentionally "coming soon" stubs that carry
+    EXTEND-HERE notes describing exactly how real content slots in later,
+    when registration (with online payment) and the full program are added.
+  ============================================================================
+-->
+
+<!-- Favicon: inline atomic-lattice mark (no external request) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F6EFE1'/%3E%3Cline x1='16' y1='7' x2='7' y2='23' stroke='%2320231C' stroke-width='1.2'/%3E%3Cline x1='16' y1='7' x2='25' y2='23' stroke='%2320231C' stroke-width='1.2'/%3E%3Cline x1='7' y1='23' x2='25' y2='23' stroke='%2320231C' stroke-width='1.2'/%3E%3Ccircle cx='16' cy='7' r='2.6' fill='%23C7841F'/%3E%3Ccircle cx='7' cy='23' r='2.6' fill='%232E4434'/%3E%3Ccircle cx='25' cy='23' r='2.6' fill='%232E4434'/%3E%3C/svg%3E" />
+
+<!-- Google Fonts: Fraunces (optical serif display) · Hanken Grotesk (humanist body) · IBM Plex Mono (field-note metadata) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ==========================================================================
+     DESIGN TOKENS
+     ========================================================================== */
+  :root {
+    /* — Palette: warm paper canvas, redwood greens, golden-hour amber, Pacific dusk-blue, warm ink — */
+    --paper:        #F6EFE1;   /* dominant warm paper/sand canvas */
+    --paper-deep:   #EFE5D2;   /* slightly deeper paper for panels */
+    --paper-edge:   #E7DAC1;   /* card edges / wash */
+    --ink:          #20231C;   /* warm near-black ink */
+    --ink-soft:     #4A4C40;   /* secondary text */
+    --ink-faint:    #5C5D4D;   /* tertiary / captions (darkened to clear WCAG AA on paper) */
+
+    --redwood:      #2E4434;   /* deep forest/redwood green (dominant accent) */
+    --redwood-deep: #1F2F25;   /* darkest green for footer */
+    --amber:        #8A5A12;   /* deep golden-ochre — ACCENT TEXT/UI; meets WCAG AA on paper */
+    --amber-glow:   #C7841F;   /* bright golden-hour amber — decorative illustration only */
+    --amber-bright: #E0A23B;   /* lightest amber glow — decorative only */
+    --dusk:         #4F6678;   /* muted Pacific dusk-blue secondary */
+
+    --hairline:     #C9B89A;   /* fine lattice/divider line on paper */
+    --hairline-soft:#D9CBB0;
+
+    /* — Type — */
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body:    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    /* — Spacing scale — */
+    --sp-1: 0.5rem;
+    --sp-2: 1rem;
+    --sp-3: 1.5rem;
+    --sp-4: 2.5rem;
+    --sp-5: 4rem;
+    --sp-6: 6rem;
+    --sp-7: 9rem;
+
+    /* — Layout — */
+    --measure: 1320px;
+    --gutter: clamp(1.25rem, 5vw, 5rem);
+    --radius: 3px;
+
+    /* — Motion — */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ==========================================================================
+     RESET / BASE
+     ========================================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 0.97rem + 0.18vw, 1.08rem);
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Subtle paper grain + faint optical-lattice texture, baked into the background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 18%, rgba(199,132,31,0.05), transparent 42%),
+      radial-gradient(circle at 88% 8%, rgba(79,102,120,0.05), transparent 38%);
+    pointer-events: none;
+  }
+  /* very faint dotted atomic lattice across whole page */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(var(--hairline) 0.6px, transparent 0.7px);
+    background-size: 34px 34px;
+    opacity: 0.28;
+    pointer-events: none;
+  }
+
+  img, svg { max-width: 100%; display: block; }
+
+  a { color: inherit; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-optical-sizing: auto;
+  }
+
+  p { margin: 0 0 1em; }
+
+  /* ==========================================================================
+     ACCESSIBILITY — focus + skip link
+     ========================================================================== */
+  :focus-visible {
+    outline: 2.5px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  /* On the dark footer, a paper-colored ring stays clearly visible */
+  .site-footer :focus-visible { outline-color: var(--paper); }
+
+  .skip-link {
+    position: absolute;
+    left: 0.75rem; top: -120%;
+    z-index: 200;
+    background: var(--redwood);
+    color: var(--paper);
+    padding: 0.6rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: top 0.2s var(--ease);
+  }
+  .skip-link:focus { top: 0.75rem; }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+
+  /* ==========================================================================
+     SHARED LAYOUT
+     ========================================================================== */
+  .wrap {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Reusable monospace "field note" label */
+  .fieldnote {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  /* Fine atomic-lattice hairline divider: a thin rule punctuated by lattice nodes */
+  .lattice-rule {
+    position: relative;
+    height: 1px;
+    background: var(--hairline);
+    margin: 0;
+    border: 0;
+  }
+  .lattice-rule::before,
+  .lattice-rule::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    transform: translateY(-50%);
+  }
+  .lattice-rule::before { left: 0; }
+  .lattice-rule::after  { right: 0; }
+
+  /* Section eyebrow row: 01 / SECTION — title, with a hairline trailing off */
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: var(--sp-3);
+    flex-wrap: wrap;
+  }
+  .eyebrow .rule-fill {
+    flex: 1 1 60px;
+    min-width: 40px;
+    height: 1px;
+    background: linear-gradient(to right, var(--hairline), transparent);
+    align-self: center;
+  }
+
+  section { scroll-margin-top: 100px; }
+
+  /* ==========================================================================
+     HEADER / NAV
+     ========================================================================== */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--paper) 86%, transparent);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 64px;
+    padding-block: 0.55rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand .mark { flex: none; }
+  .brand .mark svg { width: 32px; height: 32px; display: block; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-text .word {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.18rem;
+    letter-spacing: -0.01em;
+  }
+  .brand-text .sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 3px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.6rem, 2vw, 1.9rem);
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 0.4rem 0.1rem;
+    position: relative;
+    white-space: nowrap;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1.5px;
+    background: var(--amber);
+    transition: width 0.28s var(--ease);
+  }
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after { width: 100%; }
+
+  .nav-links a .soon {
+    font-size: 0.58rem;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 999px;
+    padding: 1px 5px;
+    margin-left: 5px;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+  }
+
+  /* Use .nav-links a.nav-cta so it beats the .nav-links a base color rule
+     (otherwise the button text inherits dark ink on the dark-green button). */
+  .nav-links a.nav-cta {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--paper);
+    background: var(--redwood);
+    padding: 0.55rem 1.05rem;
+    border-radius: var(--radius);
+    transition: background 0.25s var(--ease);
+    white-space: nowrap;
+  }
+  .nav-links a.nav-cta::after { display: none; }  /* no hover underline on the solid button */
+  .nav-links a.nav-cta:hover,
+  .nav-links a.nav-cta:focus-visible { background: var(--redwood-deep); color: var(--paper); }
+
+  /* Mobile nav: turn the link list into a wrapping row under the brand */
+  .nav-toggle { display: none; }
+  @media (max-width: 860px) {
+    .nav { flex-wrap: wrap; }
+    .nav .brand { flex: 1 1 0%; min-width: 0; }  /* basis 0 so the toggle never wraps to a 2nd row */
+    .nav-desktop {
+      flex-basis: 100%;
+      order: 3;
+      display: none;
+      padding-bottom: 0.6rem;
+    }
+    .nav-desktop.open { display: block; }
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.15rem;
+      border-top: 1px solid var(--hairline-soft);
+      padding-top: 0.4rem;
+    }
+    .nav-links a { font-size: 0.95rem; padding: 0.7rem 0; display: block; min-height: 44px; }
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: none;
+      background: none;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      min-height: 44px;
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+    }
+    .nav-toggle svg { width: 14px; height: 14px; }
+  }
+
+  /* ==========================================================================
+     SECTION: Hero / Save the date
+     ========================================================================== */
+  .hero {
+    position: relative;
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: end;
+  }
+  @media (min-width: 1000px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  .hero-masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.9rem;
+    margin-bottom: clamp(1.2rem, 3vw, 2rem);
+    border-bottom: 2px solid var(--ink);
+    flex-wrap: wrap;
+  }
+  .hero-masthead .vol {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .hero-masthead .vol b { color: var(--amber); font-weight: 500; }
+
+  .hero h1 {
+    font-size: clamp(2.9rem, 9.5vw, 7rem);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 0.92;
+  }
+  .hero h1 .camp {
+    display: block;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--redwood);
+  }
+  .hero h1 .camp em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 1.6vw, 0.85rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 1.3rem;
+    max-width: 40ch;
+  }
+  /* Full conference name above the wordmark; the C/A/M/P initials are keyed in
+     the accent color so the "CAMP" acronym is self-evident. */
+  .hero-fullname {
+    font-family: var(--font-display);
+    font-size: clamp(1.12rem, 2.2vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0 0 0.55rem;
+    max-width: 26ch;
+    letter-spacing: 0.005em;
+  }
+  .hero-fullname .acro {
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  /* Save-the-date "field card" — looks like a clipped journal coupon */
+  .stamp {
+    position: relative;
+    background: var(--paper-deep);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    box-shadow: 0 1px 0 var(--paper-edge), 0 18px 40px -28px rgba(31,47,37,0.5);
+    overflow: hidden;
+  }
+  .stamp .corner-coord {
+    position: absolute;
+    top: 0.7rem; right: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+  .stamp .stamp-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .stamp .dateline {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 4.5vw, 2.45rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .stamp .dateline span { display: block; font-size: 0.62em; color: var(--ink-soft); margin-top: 0.35rem; font-style: italic; }
+  .stamp .venue {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .stamp .venue strong { color: var(--ink); font-weight: 600; }
+  .stamp .venue a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--hairline);
+    text-underline-offset: 2px;
+    transition: color 0.2s var(--ease), text-decoration-color 0.2s var(--ease);
+  }
+  .stamp .venue a:hover, .stamp .venue a:focus-visible { color: var(--amber); text-decoration-color: var(--amber); }
+  .stamp .coords {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--dusk);
+  }
+  .stamp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.3rem;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: var(--radius);
+    padding: 0.7rem 1.1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-solid { background: var(--redwood); color: var(--paper); }
+  .btn-solid:hover, .btn-solid:focus-visible { background: var(--redwood-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover, .btn-ghost:focus-visible { background: var(--ink); color: var(--paper); }
+  .btn svg { width: 15px; height: 15px; }
+
+  .stamp .perforation {
+    border-top: 1px dashed var(--hairline);
+    margin-top: 0.2rem;
+    padding-top: 0.9rem;
+  }
+
+  /* Horizon / redwood / golden-hour scene under the hero */
+  .scene {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    position: relative;
+  }
+  .scene svg {
+    width: 100%; height: auto; display: block;
+    border-radius: var(--radius);
+    border: 1px solid var(--hairline-soft);
+    box-shadow: 0 22px 55px -36px rgba(31,47,37,0.55);
+  }
+
+  /* ==========================================================================
+     SECTION: Vision / About
+     ========================================================================== */
+  .vision {
+    padding-block: clamp(3.5rem, 8vw, var(--sp-7));
+  }
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+  @media (min-width: 920px) {
+    .vision-grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  }
+  .vision h2 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.02;
+    max-width: 18ch;
+  }
+  .vision h2 em { font-style: italic; color: var(--redwood); }
+  .vision-lede {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.3vw, 1.55rem);
+    font-weight: 300;
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 36ch;
+  }
+  .vision-body { color: var(--ink-soft); }
+  .vision-body p { max-width: 60ch; }
+
+  /* Drop-cap on first vision paragraph — editorial flourish */
+  .vision-body .lead::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.72;
+    float: left;
+    padding: 0.05em 0.12em 0 0;
+    color: var(--redwood);
+    font-weight: 400;
+  }
+
+  /* Pillars: four field-note priorities */
+  .pillars {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .pillars li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .pillars .p-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+  }
+  .pillars .p-title {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    color: var(--ink);
+  }
+  .pillars .p-desc {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+
+  /* Stat strip — quiet, monospace metadata */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 2.5rem;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 720px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+  .facts .fact {
+    background: var(--paper);
+    padding: 1.1rem 1rem;
+  }
+  .facts .fact .n {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    color: var(--redwood);
+    line-height: 1;
+  }
+  .facts .fact .l {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.5rem;
+  }
+
+  /* ==========================================================================
+     SECTION: Confirmed Speakers
+     ========================================================================== */
+  .speakers { padding-block: clamp(3rem, 7vw, var(--sp-6)); }
+  .speaker-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: var(--sp-3);
+    border-top: 1px solid var(--hairline);
+  }
+  @media (min-width: 760px) {
+    .speaker-grid { grid-template-columns: repeat(3, 1fr); border-top: none; }
+  }
+  .speaker {
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--hairline);
+    position: relative;
+  }
+  @media (min-width: 760px) {
+    .speaker {
+      padding: 0 1.6rem 0 0;
+      border-bottom: none;
+      border-left: 1px solid var(--hairline);
+      padding-left: 1.6rem;
+      min-height: 230px;
+    }
+    .speaker:first-child { border-left: none; padding-left: 0; }
+  }
+  .speaker .portrait {
+    width: 76px; height: 76px;
+    margin-bottom: 1.1rem;
+  }
+  .speaker .portrait svg { width: 100%; height: 100%; }
+  .speaker .s-idx {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .speaker h3 {
+    font-size: 1.6rem;
+    line-height: 1.05;
+  }
+  .speaker .affil {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+    line-height: 1.5;
+  }
+  .speakers-note {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--redwood);
+    margin-top: 2rem;
+  }
+
+  /* ==========================================================================
+     SECTION: Organizing Committee
+     ========================================================================== */
+  .committee { padding-block: clamp(3rem, 7vw, var(--sp-6)); }
+  .committee-list {
+    list-style: none;
+    margin: var(--sp-3) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .committee-list li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .committee-list .c-idx {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+  }
+  .committee-list .c-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    color: var(--ink);
+  }
+  .committee-list .c-affil {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  @media (max-width: 620px) {
+    .committee-list li { grid-template-columns: auto 1fr; }
+    .committee-list .c-affil { grid-column: 2; text-align: left; margin-top: 0.1rem; }
+  }
+
+  /* ==========================================================================
+     SECTION: Program + Register stubs
+     ========================================================================== */
+  .stubs { padding-block: clamp(2.5rem, 6vw, var(--sp-5)); }
+  .stub-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 760px) { .stub-grid { grid-template-columns: 1fr 1fr; } }
+  .stub {
+    background: var(--paper);
+    padding: clamp(1.6rem, 3.5vw, 2.6rem);
+  }
+  .stub .stub-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--amber);
+  }
+  .stub h3 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    margin: 0.7rem 0 0.6rem;
+  }
+  .stub .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--redwood);
+    border: 1px solid var(--redwood);
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-bottom: 1rem;
+  }
+  .stub p { color: var(--ink-soft); max-width: 42ch; margin-bottom: 0; }
+
+  /* ==========================================================================
+     SECTION: Sponsors
+     ========================================================================== */
+  .sponsors { padding-block: clamp(3rem, 7vw, var(--sp-6)); }
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-top: var(--sp-3);
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  @media (min-width: 680px) { .logo-grid { grid-template-columns: repeat(3, 1fr); } }
+  .logo-card {
+    background: var(--paper);
+    padding: clamp(1.8rem, 4vw, 2.6rem) 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    text-align: center;
+    min-height: 150px;
+  }
+  .logo-card img {
+    max-height: 56px;
+    width: auto;
+    object-fit: contain;
+  }
+  /* The placeholder wordmark SVG already shows the sponsor name, so the text
+     caption is hidden by default and only revealed (via onerror) if an image
+     ever fails to load — a graceful fallback that keeps the name visible. */
+  .logo-card .logo-name {
+    display: none;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: 24ch;
+  }
+  .logo-card .logo-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .sponsor-invite {
+    margin-top: 1.8rem;
+    max-width: 56ch;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  .sponsor-invite a {
+    color: var(--redwood);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    font-weight: 600;
+  }
+  .sponsor-invite a:hover, .sponsor-invite a:focus-visible { color: var(--amber); }
+
+  /* ==========================================================================
+     FOOTER
+     ========================================================================== */
+  .site-footer {
+    background: var(--redwood-deep);
+    color: var(--paper);
+    margin-top: clamp(3rem, 8vw, var(--sp-6));
+    padding-block: clamp(3rem, 7vw, var(--sp-6));
+    position: relative;
+    overflow: hidden;
+  }
+  .site-footer .lattice-rule { background: rgba(246,239,225,0.18); }
+  .site-footer .lattice-rule::before,
+  .site-footer .lattice-rule::after {
+    background: var(--redwood-deep);
+    border-color: rgba(246,239,225,0.4);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 820px) {
+    .footer-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: end; }
+  }
+  .footer-brand .word {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    line-height: 0.95;
+    color: var(--paper);
+  }
+  .footer-brand .word em { font-style: italic; color: var(--amber-bright); }
+  .footer-brand .full {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(246,239,225,0.7);
+    margin-top: 0.8rem;
+  }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: rgba(246,239,225,0.82);
+  }
+  .footer-meta a { color: var(--amber-bright); text-decoration: none; }
+  .footer-meta a:hover, .footer-meta a:focus-visible { text-decoration: underline; }
+  .footer-meta .label {
+    color: rgba(246,239,225,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    display: block;
+    margin-top: 1.1rem;
+  }
+  .footer-colophon {
+    margin-top: 2.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(246,239,225,0.18);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    color: rgba(246,239,225,0.55);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* faint redwood silhouettes in footer */
+  .footer-trees {
+    position: absolute;
+    right: -2%;
+    bottom: 0;
+    width: min(420px, 55%);
+    opacity: 0.16;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ==========================================================================
+     MOTION — staggered page-load reveal
+     ========================================================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .is-ready .reveal {
+    animation: rise 0.9s var(--ease) forwards;
+    animation-delay: var(--d, 0ms);
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* scene gentle sun pulse */
+  .sun-core { transform-origin: center; }
+  .is-ready .sun-core { animation: sunGlow 7s ease-in-out infinite alternate; }
+  @keyframes sunGlow {
+    from { opacity: 0.9; }
+    to   { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .is-ready .sun-core { animation: none; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================ HEADER / NAV ============================ -->
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Summer CAMP — home">
+        <span class="mark" aria-hidden="true">
+          <!-- Atomic-lattice mark: a small cluster of nodes + bonds -->
+          <svg viewBox="0 0 32 32" fill="none" role="img">
+            <circle cx="16" cy="6" r="2.4" fill="#C7841F"/>
+            <circle cx="6" cy="22" r="2.4" fill="#2E4434"/>
+            <circle cx="26" cy="22" r="2.4" fill="#2E4434"/>
+            <circle cx="16" cy="18" r="2.1" fill="#4F6678"/>
+            <line x1="16" y1="6" x2="6" y2="22" stroke="#20231C" stroke-width="1"/>
+            <line x1="16" y1="6" x2="26" y2="22" stroke="#20231C" stroke-width="1"/>
+            <line x1="6" y1="22" x2="26" y2="22" stroke="#20231C" stroke-width="1"/>
+            <line x1="16" y1="6" x2="16" y2="18" stroke="#20231C" stroke-width="1"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="word">Summer&nbsp;CAMP</span>
+          <span class="sub">Atomic &amp; Molecular Physics</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-desktop">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+
+      <div class="nav-desktop" id="nav-desktop">
+        <ul class="nav-links">
+          <li><a href="#format">Format</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#committee">Committee</a></li>
+          <li><a href="#program">Program <span class="soon">soon</span></a></li>
+          <li><a href="#register">Register <span class="soon">soon</span></a></li>
+          <li><a href="#sponsors">Support</a></li>
+          <li><a class="nav-cta" href="#save-the-date">Save the Date</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ============================ SECTION: Hero / Save the Date ============================ -->
+  <section class="hero" id="save-the-date" aria-labelledby="hero-title">
+    <div class="wrap">
+
+      <div class="hero-masthead reveal" style="--d:60ms">
+        <span class="vol">The <b>Inaugural</b> Conference</span>
+        <span class="vol">Est. 2027</span>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-headline">
+          <p class="hero-fullname reveal" style="--d:120ms">
+            Summer <span class="acro">C</span>onference on
+            <span class="acro">A</span>tomic and <span class="acro">M</span>olecular
+            <span class="acro">P</span>hysics
+          </p>
+          <h1 id="hero-title" class="reveal" style="--d:200ms">
+            Summer
+            <span class="camp"><em>CAMP</em></span>
+          </h1>
+          <p class="hero-tag reveal" style="--d:320ms">
+            A week-long meeting of the atomic, molecular &amp; optical physics community, all under one roof.
+          </p>
+        </div>
+
+        <!-- Save-the-date "coupon" card -->
+        <aside class="stamp reveal" style="--d:280ms" aria-label="Save the date details">
+          <span class="corner-coord" aria-hidden="true">36.9741° N<br/>122.0308° W</span>
+          <span class="stamp-label">Save the Date</span>
+          <p class="dateline">
+            June 13–18, 2027
+            <span>Four and a half days, on-site</span>
+          </p>
+          <div class="venue">
+            <strong><a href="https://www.chaminade.com/" target="_blank" rel="noopener">Chaminade Resort</a></strong><br/>
+            Santa Cruz, California
+          </div>
+          <div class="coords" aria-hidden="true">VENUE — CHAMINADE · SANTA CRUZ, CA</div>
+
+          <div class="perforation">
+            <div class="stamp-actions">
+              <a class="btn btn-solid" id="ics-link" href="#" download="summer-camp-2027.ics">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                Add to calendar
+              </a>
+              <a class="btn btn-ghost" href="#format">See the format</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Golden-hour coast: layered Santa Cruz ridgelines, redwoods, a Pacific light-path,
+           and a fine atomic lattice woven into the nearest hill (the science hiding in the landscape). -->
+      <div class="scene reveal" style="--d:460ms" aria-hidden="true">
+        <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" role="img">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#F6EFE1"/>
+              <stop offset="32%"  stop-color="#F6E3C0"/>
+              <stop offset="56%"  stop-color="#F2D199"/>
+              <stop offset="74%"  stop-color="#ECBC7C"/>
+              <stop offset="88%"  stop-color="#E3A453"/>
+              <stop offset="100%" stop-color="#D98A2B"/>
+            </linearGradient>
+            <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#FBE9C2"/>
+              <stop offset="38%"  stop-color="#E9AE4A"/>
+              <stop offset="100%" stop-color="#E0A23B" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#5C7488"/>
+              <stop offset="100%" stop-color="#3C5260"/>
+            </linearGradient>
+            <linearGradient id="lightpath" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#F4D79A" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#F4D79A" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="haze" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#EFC889" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#E7AE5A" stop-opacity="0.55"/>
+            </linearGradient>
+            <linearGradient id="nearRidgeGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#2D4435"/>
+              <stop offset="42%"  stop-color="#223428"/>
+              <stop offset="100%" stop-color="#15231C"/>
+            </linearGradient>
+          </defs>
+
+          <rect x="0" y="0" width="1200" height="420" fill="url(#sky)"/>
+
+          <!-- high, thin golden cloud streaks -->
+          <g stroke="#F8E7C4" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round">
+            <path d="M120,70 C260,58 420,64 560,58"/>
+            <path d="M520,104 C700,94 880,100 1040,92"/>
+            <path d="M240,138 C360,132 470,136 600,131"/>
+          </g>
+
+          <!-- golden-hour sun + soft glow -->
+          <circle class="sun-core" cx="900" cy="150" r="120" fill="url(#sun)"/>
+          <circle cx="900" cy="150" r="44" fill="#FBE6BC"/>
+
+          <!-- horizon haze warming the base of the sky -->
+          <rect x="0" y="196" width="1200" height="64" fill="url(#haze)"/>
+
+          <!-- Pacific sea band + reflected light-path under the sun -->
+          <rect x="0" y="249" width="1200" height="24" fill="url(#sea)" opacity="0.85"/>
+          <path d="M858,249 L942,249 L982,273 L818,273 Z" fill="url(#lightpath)"/>
+          <g stroke="#FBE6BC" stroke-width="2.2" opacity="0.8" stroke-linecap="round">
+            <line x1="852" y1="256" x2="948" y2="256"/>
+            <line x1="868" y1="262" x2="932" y2="262"/>
+            <line x1="882" y1="268" x2="918" y2="268"/>
+          </g>
+
+          <!-- farthest ridge: hazy blue-green, with a contour line -->
+          <path d="M0,240 C180,214 340,246 520,232 C720,216 900,248 1080,230 C1140,224 1175,232 1200,228 L1200,420 L0,420 Z"
+                fill="#3D5466" opacity="0.30"/>
+          <path d="M0,240 C180,214 340,246 520,232 C720,216 900,248 1080,230 C1140,224 1175,232 1200,228"
+                fill="none" stroke="#C9B89A" stroke-width="1" opacity="0.35"/>
+
+          <!-- mid ridge: warm forest green, contour lines following its crest -->
+          <path d="M0,300 C160,276 320,302 500,290 C700,276 880,306 1070,288 C1130,282 1170,290 1200,286 L1200,420 L0,420 Z"
+                fill="#2E4434" opacity="0.55"/>
+          <g stroke="#9FB098" stroke-width="1" fill="none" opacity="0.30">
+            <path d="M0,300 C160,276 320,302 500,290 C700,276 880,306 1070,288 C1130,282 1170,290 1200,286"/>
+            <path d="M0,318 C170,296 330,320 510,308 C710,294 890,322 1080,306 C1135,300 1172,308 1200,304"/>
+          </g>
+
+          <!-- near ridge: deep redwood, the foreground hill -->
+          <path id="nearRidge" d="M0,360 C140,338 300,360 470,350 C690,338 880,366 1060,348 C1130,342 1172,352 1200,348 L1200,420 L0,420 Z"
+                fill="url(#nearRidgeGrad)"/>
+          <!-- warm sunlit rim-light catching the crest of the foreground hill -->
+          <path d="M0,360 C140,338 300,360 470,350 C690,338 880,366 1060,348 C1130,342 1172,352 1200,348"
+                fill="none" stroke="#C99A57" stroke-width="1.4" opacity="0.5" stroke-linecap="round"/>
+
+          <!-- atomic lattice woven into the near hill: faint dots + bonds, a few amber trap-sites -->
+          <g class="lattice" opacity="0.5">
+            <g stroke="#6E8A72" stroke-width="0.8" opacity="0.7">
+              <line x1="120" y1="392" x2="190" y2="380"/>
+              <line x1="190" y1="380" x2="260" y2="392"/>
+              <line x1="120" y1="392" x2="155" y2="404"/>
+              <line x1="190" y1="380" x2="225" y2="392"/>
+              <line x1="260" y1="392" x2="225" y2="404"/>
+              <line x1="980" y1="386" x2="1045" y2="376"/>
+              <line x1="1045" y1="376" x2="1110" y2="388"/>
+              <line x1="980" y1="386" x2="1012" y2="398"/>
+              <line x1="1045" y1="376" x2="1078" y2="388"/>
+            </g>
+            <g fill="#8AA88E">
+              <circle cx="120" cy="392" r="2.2"/><circle cx="190" cy="380" r="2.2"/>
+              <circle cx="260" cy="392" r="2.2"/><circle cx="155" cy="404" r="2.2"/>
+              <circle cx="225" cy="392" r="2.2"/>
+              <circle cx="980" cy="386" r="2.2"/><circle cx="1045" cy="376" r="2.2"/>
+              <circle cx="1110" cy="388" r="2.2"/><circle cx="1012" cy="398" r="2.2"/>
+              <circle cx="1078" cy="388" r="2.2"/>
+            </g>
+            <g fill="#E0A23B">
+              <circle cx="190" cy="380" r="2.6"/>
+              <circle cx="1045" cy="376" r="2.6"/>
+            </g>
+          </g>
+
+          <!-- redwood silhouettes along the near ridge, varied sizes -->
+          <g fill="#16241D">
+            <g transform="translate(95,250) scale(1.05)">
+              <rect x="-3" y="60" width="6" height="60"/>
+              <path d="M0,0 L20,42 L-20,42 Z"/>
+              <path d="M0,22 L26,70 L-26,70 Z"/>
+              <path d="M0,46 L32,104 L-32,104 Z"/>
+            </g>
+            <g transform="translate(250,286) scale(0.78)">
+              <rect x="-3" y="60" width="6" height="60"/>
+              <path d="M0,0 L20,42 L-20,42 Z"/>
+              <path d="M0,22 L26,70 L-26,70 Z"/>
+              <path d="M0,46 L32,104 L-32,104 Z"/>
+            </g>
+            <g transform="translate(360,300) scale(0.6)">
+              <rect x="-3" y="60" width="6" height="60"/>
+              <path d="M0,0 L20,42 L-20,42 Z"/>
+              <path d="M0,22 L26,70 L-26,70 Z"/>
+              <path d="M0,46 L32,104 L-32,104 Z"/>
+            </g>
+            <g transform="translate(1015,262) scale(0.95)">
+              <rect x="-3" y="60" width="6" height="60"/>
+              <path d="M0,0 L20,42 L-20,42 Z"/>
+              <path d="M0,22 L26,70 L-26,70 Z"/>
+              <path d="M0,46 L32,104 L-32,104 Z"/>
+            </g>
+            <g transform="translate(1120,286) scale(0.7)">
+              <rect x="-3" y="60" width="6" height="60"/>
+              <path d="M0,0 L20,42 L-20,42 Z"/>
+              <path d="M0,22 L26,70 L-26,70 Z"/>
+              <path d="M0,46 L32,104 L-32,104 Z"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Vision / About ============================ -->
+  <section class="vision" id="format" aria-labelledby="format-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="section-num">01</span>
+        <span class="fieldnote">Meeting Format</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+
+      <div class="vision-grid">
+        <div>
+          <h2 id="format-title" class="reveal">Everyone on-site, all week.</h2>
+          <p class="vision-lede reveal" style="--d:120ms">
+            Four and a half days at the Chaminade Resort in Santa Cruz — roughly two hundred
+            atomic, molecular, and optical physicists, living and meeting in one place.
+          </p>
+
+          <ul class="facts" aria-label="Conference at a glance">
+            <li class="fact reveal" style="--d:60ms"><div class="n">~200</div><div class="l">Attendees</div></li>
+            <li class="fact reveal" style="--d:120ms"><div class="n">~40</div><div class="l">Invited talks</div></li>
+            <li class="fact reveal" style="--d:180ms"><div class="n">4.5</div><div class="l">Days, residential</div></li>
+            <li class="fact reveal" style="--d:240ms"><div class="n">1<span style="font-size:0.5em;vertical-align:super">st</span></div><div class="l">Inaugural year</div></li>
+          </ul>
+        </div>
+
+        <div class="vision-body">
+          <p class="lead reveal" style="--d:80ms">
+            All talks, meals, and downtime take place at the resort, and every participant
+            stays on-site for the full meeting — so senior faculty and first-year graduate
+            students spend the whole week in the same place rather than scattered across town.
+          </p>
+
+          <ul class="pillars" aria-label="The meeting format">
+            <li class="reveal" style="--d:80ms">
+              <span class="p-num">F/01</span>
+              <span>
+                <span class="p-title">~40 invited talks</span>
+                <span class="p-desc">Across theory and experiment, pitched to be clear for graduate students in any AMO subfield, with an emphasis on new and unpublished work.</span>
+              </span>
+            </li>
+            <li class="reveal" style="--d:140ms">
+              <span class="p-num">F/02</span>
+              <span>
+                <span class="p-title">Communal meals</span>
+                <span class="p-desc">Breakfast, lunch, coffee breaks, and dinner — shared by the whole meeting, every day.</span>
+              </span>
+            </li>
+            <li class="reveal" style="--d:200ms">
+              <span class="p-num">F/03</span>
+              <span>
+                <span class="p-title">Open afternoons</span>
+                <span class="p-desc">Time set aside each day for hiking, sport, poster sessions, and unstructured conversation.</span>
+              </span>
+            </li>
+            <li class="reveal" style="--d:260ms">
+              <span class="p-num">F/04</span>
+              <span>
+                <span class="p-title">Every career stage</span>
+                <span class="p-desc">From first-year students to senior faculty, present and engaged for the full week.</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Confirmed Speakers ============================ -->
+  <section class="speakers" id="speakers" aria-labelledby="speakers-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="section-num">02</span>
+        <span class="fieldnote">Confirmed Speakers</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+      <h2 id="speakers-title" class="vision-lede reveal" style="font-style:italic;color:var(--ink);max-width:30ch">
+        World-leading AMO physicists, spanning theory and experiment.
+      </h2>
+
+      <div class="speaker-grid">
+        <!-- Speaker portraits are abstract inline-SVG "orbital" marks — no photos -->
+        <article class="speaker reveal" style="--d:80ms">
+          <div class="portrait" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="6" fill="#C7841F"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2E4434" stroke-width="1.4"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#4F6678" stroke-width="1.4" transform="rotate(60 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(120 40 40)"/>
+            </svg>
+          </div>
+          <p class="s-idx">SP/01</p>
+          <h3>Jun Ye</h3>
+          <p class="affil">JILA<br/>University of Colorado Boulder</p>
+        </article>
+
+        <article class="speaker reveal" style="--d:160ms">
+          <div class="portrait" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="6" fill="#2E4434"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#C7841F" stroke-width="1.4" transform="rotate(20 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#4F6678" stroke-width="1.4" transform="rotate(80 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(140 40 40)"/>
+            </svg>
+          </div>
+          <p class="s-idx">SP/02</p>
+          <h3>Adam Kaufman</h3>
+          <p class="affil">JILA<br/>University of Colorado Boulder</p>
+        </article>
+
+        <article class="speaker reveal" style="--d:240ms">
+          <div class="portrait" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="6" fill="#4F6678"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2E4434" stroke-width="1.4" transform="rotate(45 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#C7841F" stroke-width="1.4" transform="rotate(105 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(165 40 40)"/>
+            </svg>
+          </div>
+          <p class="s-idx">SP/03</p>
+          <h3>Monika Schleier-Smith</h3>
+          <p class="affil">Stanford University</p>
+        </article>
+      </div>
+
+      <p class="speakers-note reveal">More speakers to be announced.</p>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Organizing Committee ============================ -->
+  <section class="committee" id="committee" aria-labelledby="committee-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="section-num">03</span>
+        <span class="fieldnote">Organizing Committee</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+      <h2 id="committee-title" class="vision-lede reveal" style="font-style:italic;color:var(--ink);max-width:32ch">
+        Convened by colleagues across the AMO community.
+      </h2>
+
+      <!-- Listed alphabetically by last name -->
+      <ul class="committee-list" aria-label="Organizing committee members">
+        <li class="reveal" style="--d:40ms"><span class="c-idx">01</span><span class="c-name">Eric Cornell</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
+        <li class="reveal" style="--d:80ms"><span class="c-idx">02</span><span class="c-name">Dave DeMille</span><span class="c-affil">Johns Hopkins University</span></li>
+        <li class="reveal" style="--d:120ms"><span class="c-idx">03</span><span class="c-name">John Doyle</span><span class="c-affil">Harvard University</span></li>
+        <li class="reveal" style="--d:160ms"><span class="c-idx">04</span><span class="c-name">Nick Hutzler</span><span class="c-affil">Caltech</span></li>
+        <li class="reveal" style="--d:200ms"><span class="c-idx">05</span><span class="c-name">Shimon Kolkowitz</span><span class="c-affil">UC Berkeley</span></li>
+        <li class="reveal" style="--d:240ms"><span class="c-idx">06</span><span class="c-name">Heather Lewandowski</span><span class="c-affil">JILA · University of Colorado Boulder</span></li>
+        <li class="reveal" style="--d:280ms"><span class="c-idx">07</span><span class="c-name">Mikhail Lukin</span><span class="c-affil">Harvard University</span></li>
+        <li class="reveal" style="--d:320ms"><span class="c-idx">08</span><span class="c-name">Chris Monroe</span><span class="c-affil">Duke University</span></li>
+        <li class="reveal" style="--d:360ms"><span class="c-idx">09</span><span class="c-name">Susanne Yelin</span><span class="c-affil">Harvard University</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Program + Register stubs ============================ -->
+  <section class="stubs" aria-labelledby="stubs-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="section-num">04</span>
+        <span class="fieldnote">Coming Soon</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+      <h2 id="stubs-title" class="visually-hidden">Program and Registration</h2>
+
+      <div class="stub-grid">
+
+        <!-- SECTION: Program (stub) -->
+        <article class="stub" id="program">
+          <!--
+            EXTEND HERE: Program / Schedule
+            When the full schedule is ready, replace the placeholder copy below with
+            the day-by-day program. Suggested structure for the future page:
+              <ol class="schedule"> with one <li> per day (June 13 … June 18),
+              each containing talk blocks (time · speaker · title) and the open
+              afternoon / poster / social slots. This anchor (#program) and the
+              nav link already point here, so a future /program.html can reuse it.
+          -->
+          <p class="stub-num">04 · A</p>
+          <span class="badge">Full program to be announced</span>
+          <h3>Program</h3>
+          <p>
+            Roughly forty invited talks across AMO theory and experiment, with afternoons
+            held open for hiking, sport, poster sessions, and informal exchange. The complete
+            day-by-day schedule will be published here closer to the meeting.
+          </p>
+        </article>
+
+        <!-- SECTION: Register (stub) -->
+        <article class="stub" id="register">
+          <!--
+            EXTEND HERE: Registration (with online payment)
+            When registration opens, replace this placeholder with the registration
+            flow. Suggested structure for the future build:
+              - a <form> posting to the payment/registration backend, or
+              - a clearly labeled link/button to the hosted registration system.
+            Keep this anchor (#register) and the nav "Register" link intact so the
+            future /register.html (or modal) drops straight in. No fees are shown yet.
+          -->
+          <p class="stub-num">04 · B</p>
+          <span class="badge">Registration opens soon</span>
+          <h3>Register</h3>
+          <p>
+            Registration is not open yet. For now, please save the date — June 13–18, 2027 at
+            the Chaminade Resort in Santa Cruz. Details on how to register and reserve on-site
+            accommodation will follow.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Sponsors ============================ -->
+  <section class="sponsors" id="sponsors" aria-labelledby="sponsors-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="section-num">05</span>
+        <span class="fieldnote">With Support From</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+      <h2 id="sponsors-title" class="vision-lede reveal" style="font-style:italic;color:var(--ink);max-width:30ch">
+        Made possible with the support of —
+      </h2>
+
+      <!--
+        Logo grid is trivially extensible: each sponsor is one .logo-card.
+        To add a sponsor, copy a card, set the NAME text and the img src to
+        assets/logos/<slug>.svg. If the image is missing/broken, onerror hides
+        the <img> and the text NAME fallback remains visible.
+      -->
+      <div class="logo-grid">
+        <div class="logo-card reveal" style="--d:60ms">
+          <img src="assets/logos/moore.svg" alt="Gordon and Betty Moore Foundation logo"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">Gordon and Betty Moore Foundation</span>
+          <span class="logo-kicker">Foundation</span>
+        </div>
+        <div class="logo-card reveal" style="--d:140ms">
+          <img src="assets/logos/heising-simons.svg" alt="Heising-Simons Foundation logo"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">Heising-Simons Foundation</span>
+          <span class="logo-kicker">Foundation</span>
+        </div>
+        <div class="logo-card reveal" style="--d:220ms">
+          <img src="assets/logos/ciqc.svg" alt="CIQC — Challenge Institute for Quantum Computing logo"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">CIQC</span>
+          <span class="logo-kicker">Challenge Institute for Quantum Computing</span>
+        </div>
+      </div>
+
+      <p class="sponsor-invite reveal">
+        Summer CAMP is made possible by the generous support of the foundations and
+        institutes above. If you or your organization would like to help support the
+        inaugural conference, we would love to hear from you —
+        <a href="mailto:kolkowitz@berkeley.edu?subject=Summer%20CAMP%202027%20%E2%80%94%20sponsorship">get in touch</a>.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer" aria-labelledby="footer-title">
+  <div class="wrap">
+    <hr class="lattice-rule" style="margin-bottom:clamp(2.5rem,6vw,4rem)" />
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2 id="footer-title" class="word">Summer <em>CAMP</em></h2>
+        <p class="full">Summer Conference on Atomic and Molecular Physics — Inaugural, 2027</p>
+      </div>
+
+      <div class="footer-meta">
+        <div>June 13–18, 2027</div>
+        <div><a href="https://www.chaminade.com/" target="_blank" rel="noopener">Chaminade Resort</a> · Santa Cruz, California</div>
+        <div>Fully residential · ~200 attendees · ~40 invited talks</div>
+        <span class="label">Inquiries</span>
+        <a href="mailto:kolkowitz@berkeley.edu?subject=Summer%20CAMP%202027%20inquiry">kolkowitz@berkeley.edu</a>
+      </div>
+    </div>
+
+    <div class="footer-colophon">
+      <span>© 2027 Summer CAMP — Save the Date</span>
+      <span aria-hidden="true">36.9741° N · 122.0308° W</span>
+    </div>
+  </div>
+
+  <!-- faint redwood silhouettes -->
+  <div class="footer-trees" aria-hidden="true">
+    <svg viewBox="0 0 400 200" fill="#F6EFE1">
+      <g transform="translate(60,40)">
+        <rect x="-4" y="120" width="8" height="60"/>
+        <path d="M0,0 L34,72 L-34,72 Z"/>
+        <path d="M0,40 L44,120 L-44,120 Z"/>
+        <path d="M0,84 L54,160 L-54,160 Z"/>
+      </g>
+      <g transform="translate(180,70) scale(0.8)">
+        <rect x="-4" y="120" width="8" height="60"/>
+        <path d="M0,0 L34,72 L-34,72 Z"/>
+        <path d="M0,40 L44,120 L-44,120 Z"/>
+        <path d="M0,84 L54,160 L-54,160 Z"/>
+      </g>
+      <g transform="translate(300,55) scale(0.9)">
+        <rect x="-4" y="120" width="8" height="60"/>
+        <path d="M0,0 L34,72 L-34,72 Z"/>
+        <path d="M0,40 L44,120 L-44,120 Z"/>
+        <path d="M0,84 L54,160 L-54,160 Z"/>
+      </g>
+    </svg>
+  </div>
+</footer>
+
+<script>
+  /* ---- Page-load reveal: add .is-ready so staggered animations play once ---- */
+  (function () {
+    var start = function () { document.body.classList.add('is-ready'); };
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      requestAnimationFrame(start);
+    } else {
+      window.addEventListener('DOMContentLoaded', start);
+    }
+  })();
+
+  /* ---- Mobile nav toggle ---- */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var panel = document.getElementById('nav-desktop');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      var open = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    /* Close the mobile menu after following an in-page link */
+    panel.addEventListener('click', function (e) {
+      if (e.target.closest('a') && window.matchMedia('(max-width: 860px)').matches) {
+        panel.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+
+  /* ---- Generate a downloadable .ics for the save-the-date (no server needed) ---- */
+  (function () {
+    var link = document.getElementById('ics-link');
+    if (!link) return;
+    var ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Summer CAMP//Save the Date//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:summer-camp-2027@amo.physics',
+      'DTSTAMP:20260611T000000Z',
+      'DTSTART;VALUE=DATE:20270613',
+      'DTEND;VALUE=DATE:20270619',
+      'SUMMARY:Summer CAMP - Summer Conference on Atomic and Molecular Physics',
+      'LOCATION:Chaminade Resort, Santa Cruz, California',
+      'DESCRIPTION:Inaugural Summer Conference on Atomic and Molecular Physics. Fully residential. Save the date.',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    try {
+      var blob = new Blob([ics], { type: 'text/calendar' });
+      link.href = URL.createObjectURL(blob);
+    } catch (err) {
+      /* Fallback: inline data URI if Blob/URL is unavailable */
+      link.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    }
+  })();
+</script>
+</body>
+</html>
