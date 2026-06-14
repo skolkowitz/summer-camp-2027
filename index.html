@@ -1038,7 +1038,7 @@
           <li><a href="#program">Program <span class="soon">soon</span></a></li>
           <li><a href="#register">Register <span class="soon">soon</span></a></li>
           <li><a href="#sponsors">Support</a></li>
-          <li><a class="nav-cta" href="#save-the-date">Save the Date</a></li>
+          <li><a class="nav-cta" id="nav-ics-link" href="#save-the-date">Save the Date</a></li>
         </ul>
       </div>
     </nav>
@@ -1614,8 +1614,8 @@
 
   /* ---- Generate a downloadable .ics for the save-the-date (no server needed) ---- */
   (function () {
-    var link = document.getElementById('ics-link');
-    if (!link) return;
+    var links = [document.getElementById('ics-link'), document.getElementById('nav-ics-link')].filter(Boolean);
+    if (!links.length) return;
     var ics = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -1634,13 +1634,21 @@
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
+    var href;
     try {
       var blob = new Blob([ics], { type: 'text/calendar' });
-      link.href = URL.createObjectURL(blob);
+      href = URL.createObjectURL(blob);
     } catch (err) {
       /* Fallback: inline data URI if Blob/URL is unavailable */
-      link.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+      href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
     }
+    /* Wire both the hero "Add to calendar" button and the nav "Save the Date"
+       CTA to the same download. The nav CTA keeps its #save-the-date href as a
+       no-JS fallback (scrolls to the hero) until this overrides it. */
+    links.forEach(function (link) {
+      link.href = href;
+      link.setAttribute('download', 'summer-camp-2027.ics');
+    });
   })();
 </script>
 </body>
