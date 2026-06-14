@@ -832,26 +832,32 @@
     border-radius: var(--radius);
     overflow: hidden;
   }
-  @media (min-width: 680px) { .logo-grid { grid-template-columns: repeat(3, 1fr); } }
+  /* Stack on small/tablet (each logo large and legible); go 3-up only once the
+     columns are wide enough that these horizontal lockups aren't crushed. */
+  @media (min-width: 1000px) { .logo-grid { grid-template-columns: repeat(3, 1fr); } }
   .logo-card {
     background: var(--paper);
-    padding: clamp(1.8rem, 4vw, 2.6rem) 1.5rem;
+    padding: clamp(1.8rem, 4vw, 2.4rem) 1.4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.9rem;
     text-align: center;
-    min-height: 150px;
+    min-height: 138px;
   }
+  /* Real sponsor logos: never overflow the card (max-width), and cap height per
+     logo so the compact Moore wordmark and the wide two-line lockups carry
+     roughly equal optical weight on the wall. */
   .logo-card img {
-    max-height: 56px;
-    width: auto;
+    max-width: 100%;
+    height: auto;
     object-fit: contain;
   }
-  /* The placeholder wordmark SVG already shows the sponsor name, so the text
-     caption is hidden by default and only revealed (via onerror) if an image
-     ever fails to load — a graceful fallback that keeps the name visible. */
+  .logo-card .lg-moore { max-height: 60px; }
+  .logo-card .lg-hs    { max-height: 56px; }
+  .logo-card .lg-ciqc  { max-height: 50px; }
+  /* Each logo's name is part of its artwork; this text stays hidden and is only
+     revealed (via onerror) if an image ever fails to load — an accessible fallback. */
   .logo-card .logo-name {
     display: none;
     font-family: var(--font-display);
@@ -859,13 +865,6 @@
     line-height: 1.2;
     color: var(--ink);
     max-width: 24ch;
-  }
-  .logo-card .logo-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
   }
   .sponsor-invite {
     margin-top: 1.8rem;
@@ -1093,7 +1092,7 @@
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                 Add to calendar
               </a>
-              <a class="btn btn-ghost" href="#format">See the format</a>
+              <a class="btn btn-ghost" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">Join the mailing list</a>
             </div>
           </div>
         </aside>
@@ -1474,10 +1473,13 @@
           <span class="badge">Registration opens soon</span>
           <h3>Register</h3>
           <p>
-            Registration is not open yet. For now, please save the date — June 13–18, 2027 at
-            the Chaminade Resort in Santa Cruz. Details on how to register and reserve on-site
-            accommodation will follow.
+            Registration is not open yet. In the meantime, join the mailing list to be the first
+            to hear when it opens, along with program and travel updates — and save the date:
+            June 13–18, 2027, at the Chaminade Resort in Santa Cruz.
           </p>
+          <a class="btn btn-solid" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener" style="margin-top:1.3rem">
+            Join the mailing list
+          </a>
         </article>
 
       </div>
@@ -1499,28 +1501,26 @@
 
       <!--
         Logo grid is trivially extensible: each sponsor is one .logo-card.
-        To add a sponsor, copy a card, set the NAME text and the img src to
-        assets/logos/<slug>.svg. If the image is missing/broken, onerror hides
+        To add a sponsor, copy a card, point the img src at assets/logos/<slug>.(svg|png),
+        give it the matching lg-<slug> class (for per-logo height), and set the
+        .logo-name fallback text. If the image is missing/broken, onerror hides
         the <img> and the text NAME fallback remains visible.
       -->
       <div class="logo-grid">
         <div class="logo-card reveal" style="--d:60ms">
-          <img src="assets/logos/moore.svg" alt="Gordon and Betty Moore Foundation logo"
+          <img class="lg-moore" src="assets/logos/moore.svg" alt="Gordon and Betty Moore Foundation"
                onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
           <span class="logo-name">Gordon and Betty Moore Foundation</span>
-          <span class="logo-kicker">Foundation</span>
         </div>
         <div class="logo-card reveal" style="--d:140ms">
-          <img src="assets/logos/heising-simons.svg" alt="Heising-Simons Foundation logo"
+          <img class="lg-hs" src="assets/logos/heising-simons.png" alt="Heising-Simons Foundation"
                onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
           <span class="logo-name">Heising-Simons Foundation</span>
-          <span class="logo-kicker">Foundation</span>
         </div>
         <div class="logo-card reveal" style="--d:220ms">
-          <img src="assets/logos/ciqc.svg" alt="CIQC — Challenge Institute for Quantum Computing logo"
+          <img class="lg-ciqc" src="assets/logos/ciqc.png" alt="CIQC — Challenge Institute for Quantum Computation"
                onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
-          <span class="logo-name">CIQC</span>
-          <span class="logo-kicker">Challenge Institute for Quantum Computing</span>
+          <span class="logo-name">Challenge Institute for Quantum Computation (CIQC)</span>
         </div>
       </div>
 
@@ -1548,6 +1548,8 @@
         <div>June 13–18, 2027</div>
         <div><a href="https://www.chaminade.com/" target="_blank" rel="noopener">Chaminade Resort</a> · Santa Cruz, California</div>
         <div>On-site · ~200 attendees · ~40 invited talks</div>
+        <span class="label">Mailing list</span>
+        <a href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">Sign up for updates</a>
         <span class="label">Inquiries</span>
         <a href="mailto:kolkowitz@berkeley.edu?subject=Summer%20CAMP%202027%20inquiry">kolkowitz@berkeley.edu</a>
       </div>
@@ -1629,7 +1631,8 @@
       'DTEND;VALUE=DATE:20270619',
       'SUMMARY:Summer CAMP - Summer Conference on Atomic and Molecular Physics',
       'LOCATION:Chaminade Resort, Santa Cruz, California',
-      'DESCRIPTION:Inaugural Summer Conference on Atomic and Molecular Physics. Fully residential. Save the date.',
+      'URL:https://amosummercamp.org/',
+      'DESCRIPTION:Inaugural Summer Conference on Atomic and Molecular Physics. On-site, all week. Save the date.',
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
