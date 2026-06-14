@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Summer CAMP — Summer Conference on Atomic and Molecular Physics · June 13–18, 2027</title>
-<meta name="description" content="Summer CAMP — the inaugural Summer Conference on Atomic and Molecular Physics. A fully residential week-long gathering of the AMO physics community. June 13–18, 2027, Chaminade Resort, Santa Cruz, California." />
+<meta name="description" content="Summer CAMP — the inaugural Summer Conference on Atomic and Molecular Physics. A week-long, on-site gathering of the AMO physics community. June 13–18, 2027, Chaminade Resort, Santa Cruz, California." />
 
 <!--
   ============================================================================
@@ -700,7 +700,8 @@
       padding-left: 1.6rem;
       min-height: 230px;
     }
-    .speaker:first-child { border-left: none; padding-left: 0; }
+    /* First card of each 3-up row sits flush left (no leading divider) */
+    .speaker:nth-child(3n+1) { border-left: none; padding-left: 0; }
   }
   .speaker .portrait {
     width: 76px; height: 76px;
@@ -1258,7 +1259,7 @@
 
       <div class="vision-grid">
         <div>
-          <h2 id="format-title" class="reveal">Everyone on-site, all week.</h2>
+          <h2 id="format-title" class="reveal">On-site, all week.</h2>
           <p class="vision-lede reveal" style="--d:120ms">
             Four and a half days at the Chaminade Resort in Santa Cruz — roughly two hundred
             atomic, molecular, and optical physicists, living and meeting in one place.
@@ -1274,9 +1275,10 @@
 
         <div class="vision-body">
           <p class="lead reveal" style="--d:80ms">
-            All talks, meals, and downtime take place at the resort, and every participant
-            stays on-site for the full meeting — so senior faculty and first-year graduate
-            students spend the whole week in the same place rather than scattered across town.
+            All talks, meals, and downtime take place at the resort, and participants are
+            encouraged to stay on-site for the whole meeting. Most do — so senior faculty
+            and first-year graduate students share the week in one place rather than scattered
+            across town.
           </p>
 
           <ul class="pillars" aria-label="The meeting format">
@@ -1301,7 +1303,7 @@
             <li class="reveal" style="--d:260ms">
               <span>
                 <span class="p-title">Every career stage</span>
-                <span class="p-desc">From first-year students to senior faculty, present and engaged for the full week.</span>
+                <span class="p-desc">From first-year students to senior faculty, sharing the meeting on equal footing.</span>
               </span>
             </li>
           </ul>
@@ -1363,6 +1365,32 @@
           <h3>Monika Schleier-Smith</h3>
           <p class="affil">Stanford University</p>
         </article>
+
+        <article class="speaker reveal" style="--d:320ms">
+          <div class="portrait" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="6" fill="#C7841F"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#4F6678" stroke-width="1.4" transform="rotate(15 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#2E4434" stroke-width="1.4" transform="rotate(75 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(135 40 40)"/>
+            </svg>
+          </div>
+          <h3>Wolfgang Ketterle</h3>
+          <p class="affil">MIT</p>
+        </article>
+
+        <article class="speaker reveal" style="--d:400ms">
+          <div class="portrait" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="6" fill="#2E4434"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#C7841F" stroke-width="1.4" transform="rotate(50 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#4F6678" stroke-width="1.4" transform="rotate(110 40 40)"/>
+              <ellipse cx="40" cy="40" rx="32" ry="13" stroke="#20231C" stroke-width="1.4" transform="rotate(170 40 40)"/>
+            </svg>
+          </div>
+          <h3>Vladan Vuletić</h3>
+          <p class="affil">MIT</p>
+        </article>
       </div>
 
       <p class="speakers-note reveal">More speakers to be announced.</p>
@@ -1394,6 +1422,8 @@
         <li class="reveal" style="--d:320ms"><span class="c-name">Chris Monroe</span><span class="c-affil">Duke University</span></li>
         <li class="reveal" style="--d:360ms"><span class="c-name">Susanne Yelin</span><span class="c-affil">Harvard University</span></li>
       </ul>
+
+      <p class="speakers-note reveal">The full committee plans to attend, and several will be among the speakers.</p>
     </div>
   </section>
 
@@ -1517,7 +1547,7 @@
       <div class="footer-meta">
         <div>June 13–18, 2027</div>
         <div><a href="https://www.chaminade.com/" target="_blank" rel="noopener">Chaminade Resort</a> · Santa Cruz, California</div>
-        <div>Fully residential · ~200 attendees · ~40 invited talks</div>
+        <div>On-site · ~200 attendees · ~40 invited talks</div>
         <span class="label">Inquiries</span>
         <a href="mailto:kolkowitz@berkeley.edu?subject=Summer%20CAMP%202027%20inquiry">kolkowitz@berkeley.edu</a>
       </div>
