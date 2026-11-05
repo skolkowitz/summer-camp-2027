@@ -19,9 +19,10 @@
   - All colors / spacing / type live in CSS custom properties (:root tokens),
     so a future theme can be retargeted in one place.
   - Sections are demarcated with SECTION comments.
-  - Program + Register are intentionally "coming soon" stubs that carry
-    EXTEND-HERE notes describing exactly how real content slots in later,
-    when registration (with online payment) and the full program are added.
+  - Program is intentionally a "coming soon" stub that carries an EXTEND-HERE
+    note describing exactly how the schedule slots in later. The Register
+    section (#register) now links out to the Google application form; an
+    EXTEND-HERE note there covers a future hosted registration/payment flow.
   ============================================================================
 -->
 
@@ -817,6 +818,7 @@
     margin-bottom: 1rem;
   }
   .stub p { color: var(--ink-soft); max-width: 42ch; margin-bottom: 0; }
+  .stub .stub-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
 
   /* ==========================================================================
      SECTION: Sponsors
@@ -1036,7 +1038,7 @@
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#committee">Committee</a></li>
           <li><a href="#program">Program <span class="soon">soon</span></a></li>
-          <li><a href="#register">Register <span class="soon">soon</span></a></li>
+          <li><a href="#register">Apply</a></li>
           <li><a href="#sponsors">Support</a></li>
           <li><a class="nav-cta" id="nav-ics-link" href="#save-the-date">Save the Date</a></li>
         </ul>
@@ -1088,11 +1090,11 @@
 
           <div class="perforation">
             <div class="stamp-actions">
-              <a class="btn btn-solid" id="ics-link" href="#" download="summer-camp-2027.ics">
+              <a class="btn btn-solid" href="https://forms.gle/8qP278rX2KuC7BD9A" target="_blank" rel="noopener">Apply to attend<span class="visually-hidden"> (opens in a new tab)</span></a>
+              <a class="btn btn-ghost" id="ics-link" href="#" download="summer-camp-2027.ics">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                 Add to calendar
               </a>
-              <a class="btn btn-ghost" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">Join the mailing list<span class="visually-hidden"> (opens in a new tab)</span></a>
             </div>
           </div>
         </aside>
@@ -1456,12 +1458,40 @@
   <section class="stubs" aria-labelledby="stubs-title">
     <div class="wrap">
       <div class="eyebrow">
-        <span class="fieldnote">Coming Soon</span>
+        <span class="fieldnote">Apply &amp; Program</span>
         <span class="rule-fill" aria-hidden="true"></span>
       </div>
-      <h2 id="stubs-title" class="visually-hidden">Program and Registration</h2>
+      <h2 id="stubs-title" class="visually-hidden">Application and Program</h2>
 
       <div class="stub-grid">
+
+        <!-- SECTION: Apply / Register -->
+        <article class="stub" id="register">
+          <!--
+            EXTEND HERE: Registration (with online payment)
+            Attendance is by application via the Google Form linked below. When
+            accepted applicants need to register and pay, either add a second
+            button here pointing at the hosted registration/payment system, or
+            replace this card with the registration flow. Keep this anchor
+            (#register) and the nav "Apply" link intact. No fees are shown yet.
+          -->
+          <span class="badge">Applications now open</span>
+          <h3>Apply to attend</h3>
+          <p>
+            Attendance is by application. The form asks for your institution, career stage, and
+            research area, whether you would like to present a poster, your rooming preference,
+            and whether you will need financial assistance to attend. Not ready to apply? Join
+            the mailing list for program and travel updates.
+          </p>
+          <div class="stub-actions">
+            <a class="btn btn-solid" href="https://forms.gle/8qP278rX2KuC7BD9A" target="_blank" rel="noopener">
+              Apply to attend<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+            <a class="btn btn-ghost" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">
+              Join the mailing list<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </article>
 
         <!-- SECTION: Program (stub) -->
         <article class="stub" id="program">
@@ -1481,29 +1511,6 @@
             held open for hiking, sport, poster sessions, and informal exchange. The complete
             day-by-day schedule will be published here closer to the meeting.
           </p>
-        </article>
-
-        <!-- SECTION: Register (stub) -->
-        <article class="stub" id="register">
-          <!--
-            EXTEND HERE: Registration (with online payment)
-            When registration opens, replace this placeholder with the registration
-            flow. Suggested structure for the future build:
-              - a <form> posting to the payment/registration backend, or
-              - a clearly labeled link/button to the hosted registration system.
-            Keep this anchor (#register) and the nav "Register" link intact so the
-            future /register.html (or modal) drops straight in. No fees are shown yet.
-          -->
-          <span class="badge">Registration opens soon</span>
-          <h3>Register</h3>
-          <p>
-            Registration is not open yet. In the meantime, join the mailing list to be the first
-            to hear when it opens, along with program and travel updates — and save the date:
-            June 13–18, 2027, at the Chaminade Resort in Santa Cruz.
-          </p>
-          <a class="btn btn-solid" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener" style="margin-top:1.3rem">
-            Join the mailing list<span class="visually-hidden"> (opens in a new tab)</span>
-          </a>
         </article>
 
       </div>
@@ -1572,6 +1579,8 @@
         <div>June 13–18, 2027</div>
         <div><a href="https://www.chaminade.com/" target="_blank" rel="noopener">Chaminade Resort<span class="visually-hidden"> (opens in a new tab)</span></a> · Santa Cruz, California</div>
         <div>On-site · ~200 attendees · ~40 invited talks</div>
+        <span class="label">Application</span>
+        <a href="https://forms.gle/8qP278rX2KuC7BD9A" target="_blank" rel="noopener">Apply to attend<span class="visually-hidden"> (opens in a new tab)</span></a>
         <span class="label">Mailing list</span>
         <a href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">Sign up for updates<span class="visually-hidden"> (opens in a new tab)</span></a>
         <span class="label">Inquiries</span>
