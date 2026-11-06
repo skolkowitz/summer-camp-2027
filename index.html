@@ -858,6 +858,20 @@
   .logo-card .lg-moore { max-height: 60px; }
   .logo-card .lg-hs    { max-height: 56px; }
   .logo-card .lg-ciqc  { max-height: 50px; }
+  .logo-card .lg-nsf   { max-height: 52px; }
+  .logo-card .lg-qsense { max-height: 80px; }
+  .logo-card .lg-pqi   { max-height: 50px; }
+  .logo-card .lg-oratomic { max-height: 40px; }
+  /* Paired marks (funder + institute) sit side by side, as on the institute's own site,
+     and wrap to two lines if the card is ever too narrow. */
+  .logo-card.logo-pair { flex-direction: row; flex-wrap: wrap; gap: 0.9rem 1rem; }
+  .logo-card.logo-pair img { flex: 0 1 auto; min-width: 0; }
+  .logo-card.logo-pair .lg-ciqc { max-height: 42px; }
+  .logo-card.logo-pair .logo-name { flex-basis: 100%; }
+  @media (max-width: 440px) {
+    .logo-card.logo-pair .lg-nsf  { max-height: 44px; }
+    .logo-card.logo-pair .lg-ciqc { max-height: 35px; }
+  }
   /* Each logo's name is part of its artwork; this text stays hidden and is only
      revealed (via onerror) if an image ever fails to load — an accessible fallback. */
   .logo-card .logo-name {
@@ -1561,16 +1575,32 @@
                onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
           <span class="logo-name">Heising-Simons Foundation</span>
         </div>
-        <div class="logo-card reveal" style="--d:220ms">
+        <div class="logo-card logo-pair reveal" style="--d:220ms">
+          <img class="lg-nsf" src="assets/logos/nsf.png" alt="U.S. National Science Foundation"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
           <img class="lg-ciqc" src="assets/logos/ciqc.png" alt="CIQC — Challenge Institute for Quantum Computation"
                onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
-          <span class="logo-name">Challenge Institute for Quantum Computation (CIQC)</span>
+          <span class="logo-name">U.S. National Science Foundation · Challenge Institute for Quantum Computation (CIQC)</span>
+        </div>
+        <div class="logo-card reveal" style="--d:300ms">
+          <img class="lg-qsense" src="assets/logos/qsense.png" alt="NSF Q-SEnSE — Quantum Systems through Entangled Science and Engineering"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">NSF Q-SEnSE — Quantum Systems through Entangled Science and Engineering</span>
+        </div>
+        <div class="logo-card reveal" style="--d:380ms">
+          <img class="lg-pqi" src="assets/logos/princeton-quantum.png" alt="Princeton Quantum Initiative"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">Princeton Quantum Initiative</span>
+        </div>
+        <div class="logo-card reveal" style="--d:460ms">
+          <img class="lg-oratomic" src="assets/logos/oratomic.svg" alt="Oratomic"
+               onerror="this.style.display='none'; var n=this.parentNode.querySelector('.logo-name'); if(n){n.style.display='block';}" />
+          <span class="logo-name">Oratomic</span>
         </div>
       </div>
 
       <p class="sponsor-invite reveal">
-        Summer CAMP is made possible by the generous support of the foundations and
-        institutes above. If you or your organization would like to help support the
+        Summer CAMP is made possible by the generous support of the organizations above. If you or your organization would like to help support the
         inaugural conference, we would love to hear from you —
         <a href="mailto:kolkowitz@berkeley.edu?subject=Summer%20CAMP%202027%20%E2%80%94%20sponsorship">get in touch</a>.
       </p>
