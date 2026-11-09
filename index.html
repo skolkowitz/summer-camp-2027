@@ -821,6 +821,13 @@
     margin-bottom: 1rem;
   }
   .stub p { color: var(--ink-soft); max-width: 42ch; margin-bottom: 0; }
+  .stub p a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--amber);
+  }
+  .stub p a:hover, .stub p a:focus-visible { color: var(--ink); }
   .stub .stub-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
 
   /* ==========================================================================
@@ -1052,10 +1059,10 @@
       <div class="nav-desktop" id="nav-desktop">
         <ul class="nav-links">
           <li><a href="#format">Format</a></li>
+          <li><a href="#register">Apply</a></li>
+          <li><a href="#program">Program <span class="soon">soon</span></a></li>
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#committee">Committee</a></li>
-          <li><a href="#program">Program <span class="soon">soon</span></a></li>
-          <li><a href="#register">Apply</a></li>
           <li><a href="#sponsors">Support</a></li>
           <li><a class="nav-cta" id="nav-ics-link" href="#save-the-date">Save the Date</a></li>
         </ul>
@@ -1326,6 +1333,72 @@
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><hr class="lattice-rule" /></div>
+
+  <!-- ============================ SECTION: Program + Register stubs ============================ -->
+  <section class="stubs" aria-labelledby="stubs-title">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="fieldnote">Apply &amp; Program</span>
+        <span class="rule-fill" aria-hidden="true"></span>
+      </div>
+      <h2 id="stubs-title" class="visually-hidden">Application and Program</h2>
+
+      <div class="stub-grid">
+
+        <!-- SECTION: Apply / Register -->
+        <article class="stub" id="register">
+          <!--
+            EXTEND HERE: Registration (with online payment)
+            Attendance is by application via the Google Form linked below. When
+            accepted applicants need to register and pay, either add a second
+            button here pointing at the hosted registration/payment system, or
+            replace this card with the registration flow. Keep this anchor
+            (#register) and the nav "Apply" link intact. No fees are shown yet.
+          -->
+          <span class="badge">Applications now open</span>
+          <h3>Apply to attend</h3>
+          <p>
+            An approved application is required to register and attend. Please use the link below
+            to apply, and fill out the brief form. If your application is accepted, you will be sent
+            a registration and payment link by email. Your registration is not complete until payment
+            has been made.
+          </p>
+          <div class="stub-actions">
+            <a class="btn btn-solid" href="https://forms.gle/8qP278rX2KuC7BD9A" target="_blank" rel="noopener">
+              Apply to attend<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+            <a class="btn btn-ghost" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">
+              Join the mailing list<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SECTION: Program (stub) -->
+        <article class="stub" id="program">
+          <!--
+            EXTEND HERE: Program / Schedule
+            When the full schedule is ready, replace the placeholder copy below with
+            the day-by-day program. Suggested structure for the future page:
+              <ol class="schedule"> with one <li> per day (June 13 … June 18),
+              each containing talk blocks (time · speaker · title) and the open
+              afternoon / poster / social slots. This anchor (#program) and the
+              nav link already point here, so a future /program.html can reuse it.
+          -->
+          <span class="badge">Full program to be announced</span>
+          <h3>Program</h3>
+          <p>
+            Roughly thirty invited talks across AMO theory and experiment, with afternoons
+            held open for hiking, sport, poster sessions, and informal exchange. The confirmed
+            speakers so far are <a href="#speakers">listed below</a>. The complete day-by-day
+            schedule will be published here closer to the meeting.
+          </p>
+        </article>
+
       </div>
     </div>
   </section>
@@ -1631,71 +1704,6 @@
         <li class="reveal" style="--d:480ms"><span class="c-name">Annika Lunstad</span><span class="c-affil">Harvard University</span></li>
         <li class="reveal" style="--d:520ms"><span class="c-name">Mohit Verma</span><span class="c-affil">University of Chicago</span></li>
       </ul>
-    </div>
-  </section>
-
-  <div class="wrap"><hr class="lattice-rule" /></div>
-
-  <!-- ============================ SECTION: Program + Register stubs ============================ -->
-  <section class="stubs" aria-labelledby="stubs-title">
-    <div class="wrap">
-      <div class="eyebrow">
-        <span class="fieldnote">Apply &amp; Program</span>
-        <span class="rule-fill" aria-hidden="true"></span>
-      </div>
-      <h2 id="stubs-title" class="visually-hidden">Application and Program</h2>
-
-      <div class="stub-grid">
-
-        <!-- SECTION: Apply / Register -->
-        <article class="stub" id="register">
-          <!--
-            EXTEND HERE: Registration (with online payment)
-            Attendance is by application via the Google Form linked below. When
-            accepted applicants need to register and pay, either add a second
-            button here pointing at the hosted registration/payment system, or
-            replace this card with the registration flow. Keep this anchor
-            (#register) and the nav "Apply" link intact. No fees are shown yet.
-          -->
-          <span class="badge">Applications now open</span>
-          <h3>Apply to attend</h3>
-          <p>
-            An approved application is required to register and attend. Please use the link below
-            to apply, and fill out the brief form. If your application is accepted, you will be sent
-            a registration and payment link by email. Your registration is not complete until payment
-            has been made.
-          </p>
-          <div class="stub-actions">
-            <a class="btn btn-solid" href="https://forms.gle/8qP278rX2KuC7BD9A" target="_blank" rel="noopener">
-              Apply to attend<span class="visually-hidden"> (opens in a new tab)</span>
-            </a>
-            <a class="btn btn-ghost" href="https://forms.gle/y7VGhZK1KWTmvQT3A" target="_blank" rel="noopener">
-              Join the mailing list<span class="visually-hidden"> (opens in a new tab)</span>
-            </a>
-          </div>
-        </article>
-
-        <!-- SECTION: Program (stub) -->
-        <article class="stub" id="program">
-          <!--
-            EXTEND HERE: Program / Schedule
-            When the full schedule is ready, replace the placeholder copy below with
-            the day-by-day program. Suggested structure for the future page:
-              <ol class="schedule"> with one <li> per day (June 13 … June 18),
-              each containing talk blocks (time · speaker · title) and the open
-              afternoon / poster / social slots. This anchor (#program) and the
-              nav link already point here, so a future /program.html can reuse it.
-          -->
-          <span class="badge">Full program to be announced</span>
-          <h3>Program</h3>
-          <p>
-            Roughly thirty invited talks across AMO theory and experiment, with afternoons
-            held open for hiking, sport, poster sessions, and informal exchange. The complete
-            day-by-day schedule will be published here closer to the meeting.
-          </p>
-        </article>
-
-      </div>
     </div>
   </section>
 
